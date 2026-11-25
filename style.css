@@ -1,0 +1,428 @@
+/* 1. COLORS (light mode) */
+:root {
+  --bg: #f4f6fa;
+  --card: #ffffff;
+  --text: #1b2333;
+  --muted: #6b778c;
+  --line: #e3e8f0;
+  --accent: #0e9f8e;
+  --accent-soft: #e0f5f2;
+  --high: #e04f5f;
+  --medium: #e8a13a;
+  --low: #3b8ed9;
+  --shadow: 0 1px 2px rgba(20, 30, 50, 0.06), 0 6px 18px rgba(20, 30, 50, 0.05);
+}
+/* Dark mode: JS html par data-theme="dark" laga deta hai */
+:root[data-theme="dark"] {
+  --bg: #12141d;
+  --card: #1b1e2b;
+  --text: #eef0f7;
+  --muted: #8f97ad;
+  --line: #2b2f42;
+  --accent: #34c8b4;
+  --accent-soft: #17332f;
+  --shadow: none;
+}
+/* 2. BASIC SETUP */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.25s;
+}
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+}
+.muted {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin: 2px 0 0;
+}
+[hidden] {
+  display: none !important;
+}
+/* 3. LAYOUT: side menu + main area */
+.layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  min-height: 100vh;
+}
+.side {
+  background: var(--card);
+  border-right: 1px solid var(--line);
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+}
+.nav {
+  display: grid;
+  gap: 4px;
+}
+.nav button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-align: left;
+  color: var(--muted);
+  font-weight: 500;
+}
+.nav button:hover {
+  background: var(--bg);
+}
+.nav button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+}
+.nav small {
+  font-size: 0.78rem;
+}
+.side-foot {
+  margin-top: auto;
+  display: grid;
+  gap: 4px;
+}
+.link {
+  background: none;
+  border: 0;
+  padding: 8px 12px;
+  text-align: left;
+  color: var(--muted);
+  border-radius: 10px;
+}
+.link:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+.main {
+  padding: 28px clamp(16px, 4vw, 44px) 60px;
+  max-width: 860px;
+  width: 100%;
+}
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  letter-spacing: -0.4px;
+}
+/* 4. BUTTONS AND INPUTS */
+.primary {
+  background: var(--accent);
+  color: #ffffff;
+  border: 0;
+  padding: 11px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+.primary:hover {
+  filter: brightness(1.07);
+}
+.ghost {
+  background: none;
+  border: 1px solid var(--line);
+  padding: 11px 18px;
+  border-radius: 12px;
+}
+input,
+select {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+/* 5. STATS AND PROGRESS BAR */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 22px 0 14px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+.stat b {
+  display: block;
+  font-size: 1.7rem;
+}
+.stat span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.stat.late b {
+  color: var(--high);
+}
+.bar {
+  height: 8px;
+  background: var(--line);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+#barFill {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  border-radius: 99px;
+  transition: width 0.4s;
+}
+.search {
+  margin: 18px 0 6px;
+  padding: 12px 14px;
+  background: var(--card);
+}
+/* 6. TASK GROUPS AND TASK CARDS */
+.group h3 {
+  font-size: 0.95rem;
+  margin: 22px 0 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.group h3 small {
+  background: var(--line);
+  border-radius: 99px;
+  padding: 1px 9px;
+  color: var(--muted);
+}
+.group.overdue h3 {
+  color: var(--high);
+}
+.task {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 13px 14px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s, border-color 0.15s;
+}
+.task:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+}
+.check {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.info {
+  flex: 1;
+  min-width: 0;
+}
+.name {
+  margin: 0;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.task.done .name {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+.meta {
+  margin: 5px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.chip {
+  background: var(--bg);
+  padding: 2px 9px;
+  border-radius: 99px;
+}
+.pill {
+  padding: 2px 9px;
+  border-radius: 99px;
+  color: #ffffff;
+  font-weight: 700;
+}
+.pill.high {
+  background: var(--high);
+}
+.pill.medium {
+  background: var(--medium);
+}
+.pill.low {
+  background: var(--low);
+}
+.acts {
+  display: flex;
+  gap: 4px;
+}
+.acts button {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+.acts button:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 50px 0;
+}
+/* 7. POPUP FORM (dialog) */
+dialog {
+  border: 0;
+  border-radius: 18px;
+  padding: 24px;
+  width: min(440px, 92vw);
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+dialog::backdrop {
+  background: rgba(10, 14, 25, 0.55);
+}
+dialog h2 {
+  margin: 0 0 14px;
+}
+dialog label {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+  flex: 1;
+}
+dialog label input,
+dialog label select {
+  margin-top: 5px;
+  color: var(--text);
+}
+.row {
+  display: flex;
+  gap: 12px;
+}
+.row.end {
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+/* 8. UNDO MESSAGE (toast) */
+.toast {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1b2333;
+  color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+.toast button {
+  background: none;
+  border: 0;
+  color: #5ee0cf;
+  font-weight: 700;
+}
+/* 9. MOBILE: side menu upar ki strip ban jaata hai */
+@media (max-width: 760px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .side {
+    position: static;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 14px 16px 8px;
+    gap: 10px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    grid-auto-flow: column;
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .nav button {
+    white-space: nowrap;
+    gap: 8px;
+  }
+  .side-foot {
+    margin: 0 0 0 auto;
+    display: flex;
+  }
+  .stats {
+    gap: 8px;
+  }
+  .stat {
+    padding: 10px 12px;
+  }
+  .acts {
+    flex-direction: column;
+  }
+}
+/* Jo log animation band rakhte hain unke liye */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
